@@ -50,8 +50,8 @@ import os
 import serial
 import sys
 import time
-import yaml
 from docopt import docopt
+import yaml  # pylint: disable=F0401
 
 
 class Tds():
