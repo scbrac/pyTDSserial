@@ -69,16 +69,16 @@ class Tdsgui:
     def __init__(self, root, options):
         self.root = root
         self.options = options
-        self.hardcopybutton = Button(self.root,
-                text="Hardcopy", width=20, command=self.hardcopy)
-        self.channel1button = Button(self.root,
-                text="Import Channel 1", width=20, command=self.record1)
-        self.channel2button = Button(self.root,
-                text="Import Channel 2", width=20, command=self.record2)
-        self.aboutbutton = Button(self.root,
-                text="About", width=20, command=about)
-        self.quitbutton = Button(self.root,
-                text="Quit", width=20, command=self.quit)
+        self.hardcopybutton = Button(
+            self.root, text="Hardcopy", width=20, command=self.hardcopy)
+        self.channel1button = Button(
+            self.root, text="Import Channel 1", width=20, command=self.record1)
+        self.channel2button = Button(
+            self.root, text="Import Channel 2", width=20, command=self.record2)
+        self.aboutbutton = Button(
+            self.root, text="About", width=20, command=about)
+        self.quitbutton = Button(
+            self.root, text="Quit", width=20, command=self.quit)
         self.hardcopybutton.pack()
         self.channel1button.pack()
         self.channel2button.pack()
@@ -88,24 +88,23 @@ class Tdsgui:
     def hardcopy(self):
         """Get a hardcopy."""
         filename = filedialog.SaveAs(
-                filetypes=[('PNG-Dateien', '*.png')],
-                initialfile='hardcopy.png',
-                title='Dateiname (Hardcopy)').show()
+            filetypes=[('PNG-Dateien', '*.png')],
+            initialfile='hardcopy.png',
+            title='Dateiname (Hardcopy)').show()
         if not filename:
             return
         filename = os.path.splitext(filename)[0]
         success = self.call_tds('--hardcopy {}'.format(filename))
         if not success:
             messagebox.showerror(
-                    'Fehler',
-                    'Zugriff auf Oszilloskop ist fehlgeschlagen!')
+                'Fehler',
+                'Zugriff auf Oszilloskop ist fehlgeschlagen!')
         else:
             os.system(
-                    "montage -frame 4 -geometry +0+0 -background White\
-                            -label '{}' {}.png {}.png".format(
-                                time.strftime('%H:%M:%S',
-                                    time.localtime(time.time())),
-                                filename, filename))
+                "montage -frame 4 -geometry +0+0 -background White\
+                -label '{}' {}.png {}.png".format(
+                    time.strftime('%H:%M:%S', time.localtime(time.time())),
+                    filename, filename))
             os.system('display {}.png'.format(filename))
 
     def record1(self):
@@ -119,9 +118,9 @@ class Tdsgui:
     def record(self, channel):
         """Record a channel of the oscilloscope by calling tds.py"""
         filename = filedialog.SaveAs(
-                filetypes=[('Textdateien', '*.dat')],
-                initialfile='signal.dat',
-                title='Dateiname (Kanalaufnahme)').show()
+            filetypes=[('Textdateien', '*.dat')],
+            initialfile='signal.dat',
+            title='Dateiname (Kanalaufnahme)').show()
         if filename:
             filename = os.path.splitext(filename)[0]
             success = self.call_tds('-d --channel={} {}'.format(
@@ -134,9 +133,9 @@ class Tdsgui:
     def call_tds(self, option):
         """Call command line tool."""
         command = '{} -v --port={} --baud={} {}'.format(
-                self.options['--tdscli'],
-                self.options['--port'],
-                self.options['--baud'], option)
+            self.options['--tdscli'],
+            self.options['--port'],
+            self.options['--baud'], option)
         print(command)
         success = os.system(command)
         if success == 0:

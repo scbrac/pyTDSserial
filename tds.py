@@ -61,8 +61,8 @@ class Tds():
         self.baudrate = opts['--baud']
         self.timeout = float(opts['--timeout'])
         self.verbose = opts['-v']
-        self.connection = serial.Serial(port=self.port, baudrate=self.baudrate,
-                timeout=self.timeout)
+        self.connection = serial.Serial(
+            port=self.port, baudrate=self.baudrate, timeout=self.timeout)
         self.set('RS232:TRANSMIT LF')
         self.set('RS232:HARDFLAGGING ON')
         self.set('header off')        # NOTE: didn't work with capital letters?
@@ -77,7 +77,7 @@ class Tds():
     def flush(self):
         """Flush data."""
         self.connection.flushInput()
-        #self.connection.flushOutput()  # might be a source of error?
+        # self.connection.flushOutput()  # might be a source of error?
 
     def record(self, channel, convert=False):
         """Read a single channel."""
