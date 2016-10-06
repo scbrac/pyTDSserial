@@ -174,7 +174,7 @@ def main(options):
         if not tds.hardcopy(filename=options['FILENAME']):
             return 5
     measurements = []
-    if not options['--channel'] == 'None':
+    if options['--channel']:
         for channel in options['--channel']:
             measurement = tds.record(channel, options['-d'])
             measurements.append(measurement)
